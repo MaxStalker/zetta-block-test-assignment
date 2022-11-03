@@ -1,6 +1,13 @@
-function App() {
+import DataContainer from "./containers/DataContainer";
+import DataRender from "./components/DataRender";
 
-  return <div></div>;
+function App() {
+  return (
+    <>
+      <DataContainer render={DataRender} />
+      <DataContainer render={DataRender} />
+    </>
+  );
 }
 
-export default App
+export default App;
