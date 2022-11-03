@@ -1,10 +1,19 @@
 import { DataRendererProps, Item } from "../types";
 import { useState } from "react";
 
-const SingleRow = (props: Item) => {
+export const SingleRow = (props: Item) => {
   const [expanded, setExpanded] = useState(false);
   // const expanded = true;
-  const { id, description, updatedAt, createdAt, name } = props;
+  const {
+    id,
+    type,
+    description,
+    updatedAt,
+    createdAt,
+    name,
+    query,
+    variables,
+  } = props;
   return (
     <>
       <tr
@@ -14,12 +23,14 @@ const SingleRow = (props: Item) => {
       >
         <td>{id}</td>
         <td>{name}</td>
-        <td>{createdAt}</td>
-        <td>{updatedAt}</td>
+        <td>{type}</td>
+        <td>{query || ""}</td>
+        <td>{variables ? JSON.stringify(variables) : ""}</td>
       </tr>
       {expanded && (
         <tr>
           <td colSpan="3">
+            <h4>Description</h4>
             <div style={{ padding: "20px" }}>{description}</div>
           </td>
         </tr>

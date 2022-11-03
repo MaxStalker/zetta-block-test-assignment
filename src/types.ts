@@ -1,11 +1,12 @@
 import React from "react";
 
 export type Item = {
-  createdAt: string;
-  name: string;
-  updatedAt: string;
-  description: string;
   id: string;
+  name: string;
+  type: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
   variables?: any;
   query?: string;
 };

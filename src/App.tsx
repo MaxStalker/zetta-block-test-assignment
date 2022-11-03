@@ -1,12 +1,15 @@
-import DataContainer from "./containers/DataContainer";
-import DataRender from "./components/DataRender";
+import React, { Suspense } from "react";
+
+import { Provider } from "jotai";
+import JotaiTable from "./components/JotaiTable";
 
 function App() {
   return (
-    <>
-      <DataContainer render={DataRender} />
-      <DataContainer render={DataRender} />
-    </>
+    <Provider>
+      <Suspense fallback="Loading...">
+        <JotaiTable />
+      </Suspense>
+    </Provider>
   );
 }
 
