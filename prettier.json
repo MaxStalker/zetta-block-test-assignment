@@ -1,0 +1,6 @@
+{
+  "proseWrap": "wrap",
+  "useTabs": true,
+  "tabWidth": 2,
+  "trailingComma": "es5"
+}
