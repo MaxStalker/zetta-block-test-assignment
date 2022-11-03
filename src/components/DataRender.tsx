@@ -1,10 +1,13 @@
 import { DataRendererProps, Item } from "../types";
 import { useState } from "react";
+import { useDataStore } from "../state";
 
-const SingleRow = (props: Item) => {
+export const SingleRow = (props: any) => {
+  const item = useDataStore((state: any) => state.dictionary[props.id]);
+  const update = useDataStore((state: any) => state.update);
+
   const [expanded, setExpanded] = useState(false);
-  // const expanded = true;
-  const { id, description, updatedAt, createdAt, name } = props;
+  const { id, description, updatedAt, createdAt, name } = item;
   return (
     <>
       <tr
@@ -20,7 +23,14 @@ const SingleRow = (props: Item) => {
       {expanded && (
         <tr>
           <td colSpan="3">
-            <div style={{ padding: "20px" }}>{description}</div>
+            <div
+              style={{ padding: "20px" }}
+              onClick={() => {
+                update(id, "description", "Noice!");
+              }}
+            >
+              {description}
+            </div>
           </td>
         </tr>
       )}
@@ -29,16 +39,14 @@ const SingleRow = (props: Item) => {
 };
 
 const DataRender = (props: DataRendererProps) => {
-  const { loading, error, data } = props;
-  console.log({ data });
   return (
     <>
-      <div>Loading: {loading.toString()}</div>
-      <div>Error: {error}</div>
       <table>
-        {data.map((item: Item) => (
-          <SingleRow {...item} key={item.id} />
-        ))}
+        <tbody>
+          {props.items.map((item: Item) => (
+            <SingleRow {...item} key={item.id} />
+          ))}
+        </tbody>
       </table>
     </>
   );

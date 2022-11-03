@@ -5,15 +5,14 @@ export type Item = {
   name: string;
   updatedAt: string;
   description: string;
+  type: string;
   id: string;
   variables?: any;
   query?: string;
 };
 
 export interface DataRendererProps {
-  loading: boolean;
-  error: string;
-  data: Item[];
+  items: Item[];
 }
 
 export type DataRenderer = (props: DataRendererProps) => React.ReactElement;
