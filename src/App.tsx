@@ -1,14 +1,21 @@
 import DataContainer from "./containers/DataContainer";
-import DataRender from "./components/DataRender";
+import { GlobalStyle } from "./components/styled";
+import TabContainer from "./components/Tab";
 
 // We will hardcode endpoint here
 const endpoint = "https://62a6bb9697b6156bff7e6251.mockapi.io/v1";
 
 function App() {
+  const tabs = {
+    full: <DataContainer endpoint={endpoint} key={"full"} />,
+    pokemon: (
+      <DataContainer endpoint={endpoint} filter={"pokemon"} key={"pokemon"} />
+    ),
+  };
   return (
     <>
-      <DataContainer endpoint={endpoint} />
-      <DataContainer endpoint={endpoint} filter={"test"} />
+      <GlobalStyle />
+      <TabContainer tabs={tabs} selected={"pokemon"} />
     </>
   );
 }

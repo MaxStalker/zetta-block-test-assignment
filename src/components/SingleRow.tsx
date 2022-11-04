@@ -1,10 +1,17 @@
 import { Item } from "../types";
 import { useState } from "react";
-import { TableRow, Cell, TextArea } from "./styled";
+import { TableRow, Cell, TextArea, FullWidthCell } from "./styled";
 
-const SingleRow = (props: Item) => {
+interface SingleRowProps {
+  item: Item;
+  deleteItem: () => void;
+}
+
+const SingleRow = (props: SingleRowProps) => {
+  const { item, deleteItem } = props;
+  const { id, description, updatedAt, createdAt, name, type } = item;
+
   const [expanded, setExpanded] = useState(false);
-  const { id, description, updatedAt, createdAt, name } = props;
   const [localDescription, setLocalDescription] = useState(description);
 
   const updateItem = () => {
@@ -12,6 +19,9 @@ const SingleRow = (props: Item) => {
     const body = JSON.stringify({ ...props, description: localDescription });
     fetch(postURL, {
       method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body,
     })
       .then((response) => {
@@ -39,12 +49,13 @@ const SingleRow = (props: Item) => {
       >
         <Cell>{id}</Cell>
         <Cell>{name}</Cell>
+        <Cell>{type}</Cell>
         <Cell>{createdAt}</Cell>
         <Cell>{updatedAt}</Cell>
       </TableRow>
       {expanded && (
         <TableRow>
-          <Cell colSpan="100%">
+          <FullWidthCell>
             <TextArea
               onChange={(el: any) => {
                 const { value } = el.target;
@@ -54,7 +65,8 @@ const SingleRow = (props: Item) => {
               {localDescription}
             </TextArea>
             <button onClick={updateItem}>Update</button>
-          </Cell>
+            <button onClick={deleteItem}>Delete</button>
+          </FullWidthCell>
         </TableRow>
       )}
     </>
