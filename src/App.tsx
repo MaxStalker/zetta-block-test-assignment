@@ -1,7 +1,7 @@
 import DataContainer from "./containers/DataContainer";
-import { GlobalStyle, MainContainer } from "./components/styled";
+import { GlobalStyle, MainContainer } from "./components/common";
 import Tabs from "./components/Tab";
-import { Logo, Title } from "./components/styled";
+import { Logo, Title } from "./components/common";
 
 // We will hardcode endpoint here
 const endpoint = "https://62a6bb9697b6156bff7e6251.mockapi.io/v1";

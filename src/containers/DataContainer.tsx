@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { DataContainerProps } from "../types";
 import { useFetchData, useDebounce } from "../hooks";
 import DataRender from "../components/DataRender";
-import { Content, Row, SmallGreyButton, Filter } from "../components/styled";
+import { Content, Row, SmallGreyButton, Filter } from "../components/common";
 
 const constructParams = (props: {
   sort: boolean;
@@ -57,7 +57,11 @@ const DataContainer = (props: DataContainerProps) => {
 
   return (
     <Content>
-      <Filter placeholder="Enter search term" value={search} onChange={(el) => setSearch(el.target.value)} />
+      <Filter
+        placeholder="Enter search term"
+        value={search}
+        onChange={(el: any) => setSearch(el.target.value)}
+      />
       <DataRender
         loading={loading}
         error={error}

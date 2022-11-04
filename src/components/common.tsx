@@ -50,7 +50,7 @@ export const Cell = styled.td`
 `;
 
 export const FullWidthCell = styled(Cell).attrs({
-  colSpan: "100%",
+  colSpan: 100,
 })``;
 
 export const TextArea = styled.textarea`
@@ -120,7 +120,11 @@ export const TabButton = styled.button`
   color: ${(props: TabButtonProps) => (props.selected ? "white" : "#9190a5")};
 `;
 
-export const Row = styled.div`
+interface RowProps {
+  justify?: string;
+  gap?: string;
+}
+export const Row = styled.div<RowProps>`
   display: flex;
   flex-direction: row;
   gap: ${({ gap = "10px" }) => gap};
@@ -170,7 +174,7 @@ export const Filter = styled.input.attrs({
   font-weight: bold;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.1);
 
-  ::placeholder{
+  ::placeholder {
     color: rgb(220, 220, 220);
   }
 `;

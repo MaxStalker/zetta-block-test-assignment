@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TabButton, TabControlContainer, TabsContainer } from "../styled";
+import { TabButton, TabControlContainer, TabsContainer } from "../common";
 
 const Tabs = (props: any) => {
   const { tabs, selected } = props;

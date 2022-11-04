@@ -7,7 +7,7 @@ import {
   FullWidthCell,
   SmallGreyButton,
   Row,
-} from "./styled";
+} from "./common";
 import { useHistory } from "../hooks";
 
 interface SingleRowProps {
@@ -72,13 +72,7 @@ const SingleRow = (props: SingleRowProps) => {
       {expanded && (
         <TableRow>
           <FullWidthCell>
-            <TextArea
-              ref={ref}
-              defaultValue={current}
-              onChange={(el: any) => {
-                const { value } = el.target;
-              }}
-            />
+            <TextArea ref={ref} defaultValue={current} />
             <Row justify={"space-between"}>
               <Row justify={"flex-start"}>
                 <SmallGreyButton onClick={undo}>Undo</SmallGreyButton>

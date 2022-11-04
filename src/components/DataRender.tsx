@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DataRendererProps, Item } from "../types";
 import SingleRow from "./SingleRow";
-import { TableBody, HeadCell, Table, TableHeader, TableRow } from "./styled";
+import { TableBody, HeadCell, Table, TableHeader, TableRow } from "./common";
 
 const DataRender = (props: DataRendererProps) => {
   const [deletedItems, setDeletedItems] = useState<Record<string, any>>({});
