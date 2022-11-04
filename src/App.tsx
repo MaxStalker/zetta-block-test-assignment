@@ -8,6 +8,7 @@ function App() {
   return (
     <>
       <DataContainer endpoint={endpoint} />
+      <DataContainer endpoint={endpoint} filter={"test"} />
     </>
   );
 }

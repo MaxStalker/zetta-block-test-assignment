@@ -21,4 +21,5 @@ export type DataRenderer = (props: DataRendererProps) => React.ReactElement;
 export interface DataContainerProps {
   render?: DataRenderer;
   endpoint: string;
+  filter?: string
 }

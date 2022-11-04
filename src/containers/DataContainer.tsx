@@ -1,70 +1,44 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DataContainerProps, DataRendererProps, DataRenderer } from "../types";
+import { useFetchData, useDebounce } from "../hooks";
 import DataRender from "../components/DataRender";
 
-// Let's extract value from environment variables
-const defaultEndpoint = import.meta.env.VITE_DATA_ENDPOINT || "";
-
-const fetchData = (endpoint, { setData, setLoading, setError }) => {};
-
-const useFetchData = (url) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch(url)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw response;
-      })
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error.statusText);
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [url]);
-
-  return { data, loading, error };
-};
-
-const constructParams = (props: any) => {
-  const { sort } = props;
+const constructParams = (props: { sort: boolean; search: string }) => {
+  const { sort, search } = props;
 
   let params = `?`;
+
+  // Sorting
   let sortField = "name";
   let sortDirection = sort ? "asc" : "desc";
   params += `sortBy=${sortField}&order=${sortDirection}`;
+
+  // Filter
+  if (search !== "") {
+    params += `&search=${search}`;
+  }
 
   return params;
 };
 
 const DataContainer = (props: DataContainerProps) => {
+  const { filter = "", endpoint } = props;
+
   const [sort, setSort] = useState(true);
+  const [search, setSearch] = useState(filter);
+  const debouncedSearch = useDebounce(search, 350);
 
-  const { endpoint = defaultEndpoint } = props;
-  const params = constructParams({ sort });
-  const baseURL = `${endpoint}/apis` + params;
-  // TODO: Add arguments for sorting and filtering
+  const params = constructParams({ sort, search: debouncedSearch });
+  const url = `${endpoint}/apis` + params;
 
-  const url = baseURL;
   const { data, loading, error } = useFetchData(url);
 
   return (
-    <>
-      <p>Loading: {loading.toString()}</p>
-      <p>Error: {error.toString()}</p>
-      <p>Data Length: {data && data.length}</p>
-      {data && <DataRender loading={loading} error={error} data={data} />}
+    <div style={{ "padding-bottom": "30px" }}>
       <button onClick={() => setSort(!sort)}>Sort</button>
-    </>
+      <input value={search} onChange={(el) => setSearch(el.target.value)} />
+      <DataRender loading={loading} error={error} data={data} />
+    </div>
   );
 };
 
