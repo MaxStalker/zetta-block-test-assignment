@@ -12,6 +12,13 @@ const DataRender = (props: DataRendererProps) => {
       ...deletedItems,
       [id]: true,
     });
+
+    fetch(`https://62a6bb9697b6156bff7e6251.mockapi.io/v1/apis/${id}`,{
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then();
   };
 
   return (

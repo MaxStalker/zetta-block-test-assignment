@@ -25,7 +25,7 @@ const SingleRow = (props: SingleRowProps) => {
 
   const persistChanges = () => {
     const postURL = `https://62a6bb9697b6156bff7e6251.mockapi.io/v1/apis/${id}`;
-    const body = JSON.stringify({ ...props, description: current });
+    const body = JSON.stringify({ ...item, description: current });
     fetch(postURL, {
       method: "PUT",
       headers: {
