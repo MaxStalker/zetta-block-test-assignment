@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { DataContainerProps, DataRendererProps, DataRenderer } from "../types";
+import DataRender from "../components/DataRender";
 
 // Let's extract value from environment variables
 const defaultEndpoint = import.meta.env.VITE_DATA_ENDPOINT || "";
 
-const DataContainer = (props: DataContainerProps) => {
-  const { endpoint = defaultEndpoint } = props;
-  const { render } = props;
+const fetchData = (endpoint, { setData, setLoading, setError }) => {};
 
+const useFetchData = (url) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`${endpoint}/apis`)
+    fetch(url)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -30,14 +30,42 @@ const DataContainer = (props: DataContainerProps) => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [url]);
 
-  const table = render({ loading, error, data });
-  return(
-      <>
-        {table}
-      </>
-  )
+  return { data, loading, error };
+};
+
+const constructParams = (props: any) => {
+  const { sort } = props;
+
+  let params = `?`;
+  let sortField = "name";
+  let sortDirection = sort ? "asc" : "desc";
+  params += `sortBy=${sortField}&order=${sortDirection}`;
+
+  return params;
+};
+
+const DataContainer = (props: DataContainerProps) => {
+  const [sort, setSort] = useState(true);
+
+  const { endpoint = defaultEndpoint } = props;
+  const params = constructParams({ sort });
+  const baseURL = `${endpoint}/apis` + params;
+  // TODO: Add arguments for sorting and filtering
+
+  const url = baseURL;
+  const { data, loading, error } = useFetchData(url);
+
+  return (
+    <>
+      <p>Loading: {loading.toString()}</p>
+      <p>Error: {error.toString()}</p>
+      <p>Data Length: {data && data.length}</p>
+      {data && <DataRender loading={loading} error={error} data={data} />}
+      <button onClick={() => setSort(!sort)}>Sort</button>
+    </>
+  );
 };
 
 export default DataContainer;
