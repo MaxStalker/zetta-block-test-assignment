@@ -15,6 +15,7 @@ export const Table = styled.table`
   border-spacing: 0;
   background-color: white;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1em;
 `;
 
 export const TableHeader = styled.thead`
@@ -59,12 +60,18 @@ export const TextArea = styled.textarea`
   box-sizing: border-box;
   resize: vertical;
   border: 1px solid rgb(220, 220, 220);
+  margin-bottom: 20px;
 `;
 
 export const Content = styled.div``;
 
 export const TabsContainer = styled.div`
   margin-bottom: 20px;
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Logo = styled.img`
@@ -73,7 +80,7 @@ export const Logo = styled.img`
 `;
 export const Title = styled.h2`
   text-align: center;
-  color: #5236e9;
+  color: #362aef;
   font-size: 40px;
 `;
 
@@ -87,10 +94,83 @@ export const MainContainer = styled.div`
 
 export const TabControlContainer = styled.div`
   border-radius: 40px;
-  background-color: grey;
-  display: flex;
-  flex-direction: row;
+  background-color: rgb(220, 220, 220);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.1);
+  display: grid;
+  padding: 4px;
+  box-sizing: border-box;
+  max-width: 500px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   margin-bottom: 1em;
 `;
 
-export const TabButton = styled.button``;
+interface TabButtonProps {
+  selected: boolean;
+}
+export const TabButton = styled.button`
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0.75em;
+  border-radius: 36px;
+  border: none;
+  text-transform: capitalize;
+  font-weight: bold;
+  background-color: ${(props: TabButtonProps) =>
+    props.selected ? "#9190a5" : "transparent"};
+  color: ${(props: TabButtonProps) => (props.selected ? "white" : "#9190a5")};
+`;
+
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: ${({ gap = "10px" }) => gap};
+  justify-content: ${({ justify = "center" }) => justify};
+  width: 100%;
+`;
+
+export const SmallButton = styled.button`
+  border: none;
+  font-size: 16px;
+  padding: 0.5em 0.75em;
+  border-radius: 4px;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-weight: bold;
+  &:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+`;
+
+export const SmallGreyButton = styled(SmallButton)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  line-height: 1.25;
+  color: #333;
+  background-color: rgb(230, 230, 230);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.1);
+`;
+
+export const Filter = styled.input.attrs({
+  type: "text",
+})`
+  display: block;
+  font-size: 18px;
+  border-radius: 4px;
+  padding: 0.75em 1em;
+  margin-bottom: 1em;
+  width: 100%;
+  text-align: center;
+  border: 0;
+  box-sizing: border-box;
+  color: #362aef;
+  font-weight: bold;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.1);
+
+  ::placeholder{
+    color: rgb(220, 220, 220);
+  }
+`;

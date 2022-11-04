@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { DataContainerProps } from "../types";
 import { useFetchData, useDebounce } from "../hooks";
 import DataRender from "../components/DataRender";
-import { Content } from "../components/styled";
+import { Content, Row, SmallGreyButton, Filter } from "../components/styled";
 
 const constructParams = (props: {
   sort: boolean;
@@ -57,36 +57,41 @@ const DataContainer = (props: DataContainerProps) => {
 
   return (
     <Content>
-      <input value={search} onChange={(el) => setSearch(el.target.value)} />
+      <Filter placeholder="Enter search term" value={search} onChange={(el) => setSearch(el.target.value)} />
       <DataRender
         loading={loading}
         error={error}
         data={data}
         sort={() => setSort(!sort)}
       />
-      <p>Page: {page}</p>
-      <p>Per Page: {perPage}</p>
-      <button
-        disabled={page <= 1}
-        onClick={() => {
-          let newPage = page - 1;
-          if (newPage < 1) {
-            newPage = 1;
-          }
-          setPage(newPage);
-        }}
-      >
-        Prev
-      </button>
-
-      <button
-        disabled={data.length < perPage}
-        onClick={() => {
-          setPage(page + 1);
-        }}
-      >
-        Next
-      </button>
+      <Row>
+        <Row justify={"flex-start"}>
+          <p>Page: {page}</p>
+          <p>Per Page: {perPage}</p>
+        </Row>
+        <Row justify={"flex-end"}>
+          <SmallGreyButton
+            disabled={page <= 1}
+            onClick={() => {
+              let newPage = page - 1;
+              if (newPage < 1) {
+                newPage = 1;
+              }
+              setPage(newPage);
+            }}
+          >
+            Prev
+          </SmallGreyButton>
+          <SmallGreyButton
+            disabled={data.length < perPage}
+            onClick={() => {
+              setPage(page + 1);
+            }}
+          >
+            Next
+          </SmallGreyButton>
+        </Row>
+      </Row>
     </Content>
   );
 };

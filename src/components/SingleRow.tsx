@@ -1,6 +1,13 @@
 import { Item } from "../types";
 import { useEffect, useRef, useState } from "react";
-import { TableRow, Cell, TextArea, FullWidthCell } from "./styled";
+import {
+  TableRow,
+  Cell,
+  TextArea,
+  FullWidthCell,
+  SmallGreyButton,
+  Row,
+} from "./styled";
 import { useHistory } from "../hooks";
 
 interface SingleRowProps {
@@ -43,7 +50,7 @@ const SingleRow = (props: SingleRowProps) => {
   };
 
   useEffect(() => {
-    if(ref.current){
+    if (ref.current) {
       ref.current.value = current;
     }
     persistChanges();
@@ -72,11 +79,16 @@ const SingleRow = (props: SingleRowProps) => {
                 const { value } = el.target;
               }}
             />
-            <button onClick={updateItem}>Update</button>
-            <button onClick={deleteItem}>Delete</button>
-            <br/>
-            <button onClick={undo}>Undo</button>
-            <button onClick={redo}>Redo</button>
+            <Row justify={"space-between"}>
+              <Row justify={"flex-start"}>
+                <SmallGreyButton onClick={undo}>Undo</SmallGreyButton>
+                <SmallGreyButton onClick={redo}>Redo</SmallGreyButton>
+              </Row>
+              <Row justify={"flex-end"}>
+                <SmallGreyButton onClick={deleteItem}>Delete</SmallGreyButton>
+                <SmallGreyButton onClick={updateItem}>Update</SmallGreyButton>
+              </Row>
+            </Row>
           </FullWidthCell>
         </TableRow>
       )}

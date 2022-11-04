@@ -16,8 +16,10 @@ function App() {
   return (
     <MainContainer>
       <GlobalStyle />
+
       <Logo src="/logo-animation.gif" alt="" />
       <Title>API Data Loader</Title>
+
       <Tabs tabs={tabs} />
     </MainContainer>
   );
