@@ -33,7 +33,7 @@ const constructParams = (props: {
 
 const DataContainer = (props: DataContainerProps) => {
   const { filter = "", endpoint } = props;
-  const perPage = 3;
+  const perPage = 10;
   const [sort, setSort] = useState(true);
   const [search, setSearch] = useState(filter);
   const [page, setPage] = useState(1);

@@ -6,6 +6,7 @@ export type Item = {
   updatedAt: string;
   description: string;
   id: string;
+  type: string;
   variables?: any;
   query?: string;
 };
@@ -21,5 +22,5 @@ export type DataRenderer = (props: DataRendererProps) => React.ReactElement;
 export interface DataContainerProps {
   render?: DataRenderer;
   endpoint: string;
-  filter?: string
+  filter?: string;
 }

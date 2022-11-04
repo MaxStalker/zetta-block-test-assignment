@@ -1,21 +1,23 @@
 import { useState } from "react";
+import { TabsContainer } from "../styled";
 
-const TabContainer = (props: any) => {
+const Tabs = (props: any) => {
   const { tabs, selected } = props;
   const keys = Object.keys(tabs);
-  const [currentTab, setCurrentTab] = useState(selected);
+  const [currentTab, setCurrentTab] = useState(selected || keys[0]);
 
   return (
-    <div>
-      <p>{currentTab}</p>
-      <div>
-        {keys.map((key: any) => {
-          return <button onClick={() => setCurrentTab(key)}>{key}</button>;
-        })}
-        {tabs[currentTab]}
-      </div>
-    </div>
+    <TabsContainer>
+      {keys.map((label: any) => {
+        return (
+          <button key={label} onClick={() => setCurrentTab(label)}>
+            {label}
+          </button>
+        );
+      })}
+      {tabs[currentTab]}
+    </TabsContainer>
   );
 };
 
-export default TabContainer;
+export default Tabs;

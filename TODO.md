@@ -8,8 +8,8 @@
 - [x] Should allow users to delete a record
 - [x] Add pagination
 - [x] Create a tab and add additional tables in other tabs
-- [ ] Add the ability to undo changes
-- [ ] Add the ability to redo changes
+- [x] Add the ability to undo changes
+- [x] Add the ability to redo changes
 
 # Extras
 - [x] Debounce search input

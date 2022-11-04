@@ -1,6 +1,8 @@
 import DataContainer from "./containers/DataContainer";
 import { GlobalStyle } from "./components/styled";
 import TabContainer from "./components/Tab";
+import History from "./components/History";
+import Tabs from "./components/Tab";
 
 // We will hardcode endpoint here
 const endpoint = "https://62a6bb9697b6156bff7e6251.mockapi.io/v1";
@@ -15,7 +17,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <TabContainer tabs={tabs} selected={"pokemon"} />
+      <Tabs tabs={tabs}/>
     </>
   );
 }

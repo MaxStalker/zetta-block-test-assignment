@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { DataRendererProps, Item } from "../types";
 import SingleRow from "./SingleRow";
-import { Cell, HeadCell, Table, TableHeader, TableRow } from "./styled";
+import { TableBody, HeadCell, Table, TableHeader, TableRow } from "./styled";
 
 const DataRender = (props: DataRendererProps) => {
   const [deletedItems, setDeletedItems] = useState<Record<string, any>>({});
   const { data } = props;
 
-  const deleteItem = (id) => () => {
+  const deleteItem = (id: string) => () => {
     setDeletedItems({
       ...deletedItems,
       [id]: true,
@@ -25,17 +25,19 @@ const DataRender = (props: DataRendererProps) => {
           <HeadCell>UpdatedAt</HeadCell>
         </TableRow>
       </TableHeader>
-      {data.map((item: Item) => {
-        if (!deletedItems[item.id]) {
-          return (
-            <SingleRow
-              item={item}
-              key={item.id}
-              deleteItem={deleteItem(item.id)}
-            />
-          );
-        }
-      })}
+      <TableBody>
+        {data.map((item: Item) => {
+          if (!deletedItems[item.id]) {
+            return (
+              <SingleRow
+                item={item}
+                key={item.id}
+                deleteItem={deleteItem(item.id)}
+              />
+            );
+          }
+        })}
+      </TableBody>
     </Table>
   );
 };

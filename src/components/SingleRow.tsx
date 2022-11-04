@@ -1,6 +1,7 @@
 import { Item } from "../types";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TableRow, Cell, TextArea, FullWidthCell } from "./styled";
+import { useHistory } from "../hooks";
 
 interface SingleRowProps {
   item: Item;
@@ -11,12 +12,13 @@ const SingleRow = (props: SingleRowProps) => {
   const { item, deleteItem } = props;
   const { id, description, updatedAt, createdAt, name, type } = item;
 
+  const ref = useRef<any>();
   const [expanded, setExpanded] = useState(false);
-  const [localDescription, setLocalDescription] = useState(description);
+  const { current, update, undo, redo } = useHistory(description);
 
-  const updateItem = () => {
+  const persistChanges = () => {
     const postURL = `https://62a6bb9697b6156bff7e6251.mockapi.io/v1/apis/${id}`;
-    const body = JSON.stringify({ ...props, description: localDescription });
+    const body = JSON.stringify({ ...props, description: current });
     fetch(postURL, {
       method: "PUT",
       headers: {
@@ -25,20 +27,27 @@ const SingleRow = (props: SingleRowProps) => {
       body,
     })
       .then((response) => {
-        if (response.ok) {
-          console.log("all cool");
-          //setResult(response.status);
+        if (!response.ok) {
+          throw response;
         }
-        throw response;
       })
       .catch((error) => {
         console.error("Error fetching data:", error.statusText);
-        // setError(error);
       })
-      .finally(() => {
-        // setLoading(false);
-      });
+      .finally(() => {});
   };
+
+  const updateItem = () => {
+    const { value } = ref.current;
+    update(value);
+  };
+
+  useEffect(() => {
+    if(ref.current){
+      ref.current.value = current;
+    }
+    persistChanges();
+  }, [current]);
 
   return (
     <>
@@ -57,15 +66,17 @@ const SingleRow = (props: SingleRowProps) => {
         <TableRow>
           <FullWidthCell>
             <TextArea
+              ref={ref}
+              defaultValue={current}
               onChange={(el: any) => {
                 const { value } = el.target;
-                setLocalDescription(value);
               }}
-            >
-              {localDescription}
-            </TextArea>
+            />
             <button onClick={updateItem}>Update</button>
             <button onClick={deleteItem}>Delete</button>
+            <br/>
+            <button onClick={undo}>Undo</button>
+            <button onClick={redo}>Redo</button>
           </FullWidthCell>
         </TableRow>
       )}
