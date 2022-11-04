@@ -57,9 +57,13 @@ const DataContainer = (props: DataContainerProps) => {
 
   return (
     <Content>
-      <button onClick={() => setSort(!sort)}>Sort</button>
       <input value={search} onChange={(el) => setSearch(el.target.value)} />
-      <DataRender loading={loading} error={error} data={data} />
+      <DataRender
+        loading={loading}
+        error={error}
+        data={data}
+        sort={() => setSort(!sort)}
+      />
       <p>Page: {page}</p>
       <p>Per Page: {perPage}</p>
       <button

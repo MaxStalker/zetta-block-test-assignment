@@ -5,7 +5,7 @@ import { TableBody, HeadCell, Table, TableHeader, TableRow } from "./styled";
 
 const DataRender = (props: DataRendererProps) => {
   const [deletedItems, setDeletedItems] = useState<Record<string, any>>({});
-  const { data } = props;
+  const { data, sort } = props;
 
   const deleteItem = (id: string) => () => {
     setDeletedItems({
@@ -19,7 +19,7 @@ const DataRender = (props: DataRendererProps) => {
       <TableHeader>
         <TableRow>
           <HeadCell>ID</HeadCell>
-          <HeadCell>Name</HeadCell>
+          <HeadCell onClick={sort}>Name</HeadCell>
           <HeadCell>Type</HeadCell>
           <HeadCell>CreatedAt</HeadCell>
           <HeadCell>UpdatedAt</HeadCell>

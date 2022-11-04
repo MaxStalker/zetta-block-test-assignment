@@ -1,6 +1,7 @@
 import DataContainer from "./containers/DataContainer";
-import { GlobalStyle } from "./components/styled";
+import { GlobalStyle, MainContainer } from "./components/styled";
 import Tabs from "./components/Tab";
+import { Logo, Title } from "./components/styled";
 
 // We will hardcode endpoint here
 const endpoint = "https://62a6bb9697b6156bff7e6251.mockapi.io/v1";
@@ -13,12 +14,12 @@ function App() {
     ),
   };
   return (
-    <>
+    <MainContainer>
       <GlobalStyle />
-      <Logo src="/logo-animation.gif" alt=""/>
+      <Logo src="/logo-animation.gif" alt="" />
       <Title>API Data Loader</Title>
-        <Tabs tabs={tabs} />
-    </>
+      <Tabs tabs={tabs} />
+    </MainContainer>
   );
 }
 

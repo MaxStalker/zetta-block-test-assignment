@@ -21,7 +21,7 @@ export const TableHeader = styled.thead`
   background-color: #ededf7;
 `;
 
-export const TableBody = styled.tbody``
+export const TableBody = styled.tbody``;
 
 export const HeadCell = styled.th`
   padding: 10px;
@@ -66,3 +66,31 @@ export const Content = styled.div``;
 export const TabsContainer = styled.div`
   margin-bottom: 20px;
 `;
+
+export const Logo = styled.img`
+  width: 50px;
+  height: auto;
+`;
+export const Title = styled.h2`
+  text-align: center;
+  color: #5236e9;
+  font-size: 40px;
+`;
+
+export const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 5em;
+`;
+
+export const TabControlContainer = styled.div`
+  border-radius: 40px;
+  background-color: grey;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1em;
+`;
+
+export const TabButton = styled.button``;

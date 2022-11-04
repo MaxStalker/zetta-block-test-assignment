@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TabsContainer } from "../styled";
+import { TabButton, TabControlContainer, TabsContainer } from "../styled";
 
 const Tabs = (props: any) => {
   const { tabs, selected } = props;
@@ -8,13 +8,19 @@ const Tabs = (props: any) => {
 
   return (
     <TabsContainer>
-      {keys.map((label: any) => {
-        return (
-          <button key={label} onClick={() => setCurrentTab(label)}>
-            {label}
-          </button>
-        );
-      })}
+      <TabControlContainer>
+        {keys.map((label: any) => {
+          return (
+            <TabButton
+              key={label}
+              onClick={() => setCurrentTab(label)}
+              selected={currentTab === label}
+            >
+              {label}
+            </TabButton>
+          );
+        })}
+      </TabControlContainer>
       {tabs[currentTab]}
     </TabsContainer>
   );

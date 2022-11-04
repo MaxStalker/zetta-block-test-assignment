@@ -15,6 +15,7 @@ export interface DataRendererProps {
   loading: boolean;
   error: string;
   data: Item[];
+  sort: () => void;
 }
 
 export type DataRenderer = (props: DataRendererProps) => React.ReactElement;
