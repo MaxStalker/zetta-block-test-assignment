@@ -1,7 +1,5 @@
 import DataContainer from "./containers/DataContainer";
 import { GlobalStyle } from "./components/styled";
-import TabContainer from "./components/Tab";
-import History from "./components/History";
 import Tabs from "./components/Tab";
 
 // We will hardcode endpoint here
@@ -17,7 +15,9 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <Tabs tabs={tabs}/>
+      <Logo src="/logo-animation.gif" alt=""/>
+      <Title>API Data Loader</Title>
+        <Tabs tabs={tabs} />
     </>
   );
 }
